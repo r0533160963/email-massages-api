@@ -8,7 +8,7 @@ const app = express();
 app.use(bodyParser.json());
 
 app.use(cors({
-    origin: 'http://localhost:3000',
+    origin: 'https://email-massages.onrender.com',
   }));
 
 // Routes

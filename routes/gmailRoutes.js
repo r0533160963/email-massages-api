@@ -1,5 +1,5 @@
 import express from "express";
-import {getAuthURL, handleOAuthCallback, getEmails } from "../controllers/gmailControllers.js";
+import {getAuthURL, handleOAuthCallback, getEmails,getEmailById } from "../controllers/gmailControllers.js";
 
 const router = express.Router();
 
@@ -11,5 +11,7 @@ router.get("/callback", handleOAuthCallback);
 
 // Route to fetch user's emails
 router.get("/emails", getEmails);
+
+router.get("/emails/:id", getEmailById);
 
 export default router;

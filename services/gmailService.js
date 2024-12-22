@@ -10,7 +10,8 @@ const oauth2Client = new google.auth.OAuth2(
 export function generateAuthURL () {
   return oauth2Client.generateAuthUrl({
     access_type: "offline",
-    scope: ["https://www.googleapis.com/auth/gmail.readonly"],
+    scope: ["https://www.googleapis.com/auth/gmail.readonly","https://www.googleapis.com/auth/userinfo.profile"
+  ],
   });
 };
 
