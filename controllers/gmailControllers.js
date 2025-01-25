@@ -38,37 +38,37 @@ export async function handleOAuthCallback(req, res) {
   }
 }
 
-async function getProfilePicture(accessToken) {
-  try {
-    const response = await axios.get(
-      `https://people.googleapis.com/v1/people/me?personFields=photos`,
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
-    );
+// async function getProfilePicture(accessToken) {
+//   try {
+//     const response = await axios.get(
+//       `https://people.googleapis.com/v1/people/me?personFields=photos`,
+//       {
+//         headers: {
+//           Authorization: `Bearer ${accessToken}`,
+//         },
+//       }
+//     );
 
-    const photoUrl = response.data.photos?.[0]?.url;
+//     const photoUrl = response.data.photos?.[0]?.url;
 
-    if (photoUrl) {
-      console.log("Profile photo URL:", photoUrl);
-      return photoUrl;
-    } else {
-      console.warn("No profile picture found.");
-      return null;
-    }
-  } catch (error) {
-    if (error.response) {
-      console.error(
-        `Error fetching profile picture: ${error.response.status} - ${error.response.data.error.message}`
-      );
-    } else {
-      console.error("Error fetching profile picture:", error.message);
-    }
-    return null;
-  }
-}
+//     if (photoUrl) {
+//       console.log("Profile photo URL:", photoUrl);
+//       return photoUrl;
+//     } else {
+//       console.warn("No profile picture found.");
+//       return null;
+//     }
+//   } catch (error) {
+//     if (error.response) {
+//       console.error(
+//         `Error fetching profile picture: ${error.response.status} - ${error.response.data.error.message}`
+//       );
+//     } else {
+//       console.error("Error fetching profile picture:", error.message);
+//     }
+//     return null;
+//   }
+// }
 
 export async function getEmails(req, res) {
   const accessToken = req.headers.authorization?.split("Bearer ")[1];
@@ -127,7 +127,7 @@ export async function getEmails(req, res) {
         ? fromHeader.value.replace(/<(.*?)>/, "").trim()
         : "Unknown";
 
-      const profilePicture = await getProfilePicture(emailSender, accessToken);
+      // const profilePicture = await getProfilePicture(emailSender, accessToken);
 
       return {
         id: message.id,
@@ -193,7 +193,7 @@ export async function getEmailById(req, res) {
       ? fromHeader.value.replace(/<(.*?)>/, "").trim()
       : "Unknown";
 
-    const profilePicture = await getProfilePicture(emailSender, accessToken);
+    // const profilePicture = await getProfilePicture(emailSender, accessToken);
 
     const email = {
       id: emailId,
