@@ -133,7 +133,7 @@ export async function getEmails(req, res) {
         id: message.id,
         emailSender: emailSender || "Unknown",
         senderName: senderName || "Unknown",
-        profilePicture: profilePicture || "/default-avatar.png",
+        // profilePicture: profilePicture || "/default-avatar.png",
         subject: subjectHeader?.value || "No Subject",
         body: bodyPart?.body?.data
           ? Buffer.from(bodyPart.body.data, "base64").toString("utf-8")
