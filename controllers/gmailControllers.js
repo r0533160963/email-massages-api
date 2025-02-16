@@ -218,7 +218,7 @@ export async function getEmailById(req, res) {
       id: emailId,
       emailSender: emailSender || "Unknown",
       senderName: senderName || "Unknown",
-      profilePicture: profilePicture || "/default-avatar.png",
+      // profilePicture: profilePicture || "/default-avatar.png",
       subject: subjectHeader?.value || "No Subject",
       body: decodedBody,
       date: dateHeader?.value || "No Date",
