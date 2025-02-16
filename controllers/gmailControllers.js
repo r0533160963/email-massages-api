@@ -30,7 +30,7 @@ export async function handleOAuthCallback(req, res) {
       window.close();
     </script>
   `;
-  res.send(html);
+    res.send(html);
 
   } catch (error) {
     console.error("Error during OAuth callback:", error);
@@ -83,7 +83,24 @@ export async function getEmails(req, res) {
 
     // מבצע חיפוש על כל כתובת בנפרד
     for (const email of specificEmails) {
-      const emailQuery = `from:${email}`;
+
+      const today = new Date();
+      const formattedToday = `${today.getFullYear()}/${today.getMonth() + 1}/${today.getDate()}`;
+
+      const tomorrow = new Date(today);
+      tomorrow.setDate(today.getDate() + 1);
+      const formattedTomorrow = `${tomorrow.getFullYear()}/${tomorrow.getMonth() + 1}/${tomorrow.getDate()}`;
+
+      const yesterday = new Date(today);
+      yesterday.setDate(today.getDate() - 1);
+      const formattedYesterday = `${yesterday.getFullYear()}/${yesterday.getMonth() + 1}/${yesterday.getDate()}`;
+
+      const emailQuery = `from:${email} (after:${formattedYesterday} before:${formattedToday}) OR (after:${formattedToday} before:${formattedTomorrow})`;
+
+      console.log("Email Query:", emailQuery);
+
+
+      // const emailQuery = `from:${email}`;//TODO date today
 
       let nextPageToken = null;
       do {
@@ -96,7 +113,9 @@ export async function getEmails(req, res) {
           }
         );
 
-        allMessages = allMessages.concat(messagesResponse.data.messages); // מאחד את התוצאות
+        if (messagesResponse.data.messages) {
+          allMessages = allMessages.concat(messagesResponse.data.messages); // מאחד את התוצאות רק אם קיימות הודעות
+        }
         nextPageToken = messagesResponse.data.nextPageToken; // אם יש דף נוסף
       } while (nextPageToken);
     }
